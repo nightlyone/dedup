@@ -30,6 +30,10 @@ func (s *Seen) Known(key string) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.seen == nil {
+		s.seen = make(map[string]bool)
+	}
+
+	if !s.seen[key] {
 		return false
 	}
 
