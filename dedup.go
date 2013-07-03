@@ -1,6 +1,7 @@
 package dedup
 
 import (
+	"sort"
 	"sync"
 )
 
@@ -41,9 +42,7 @@ func (s *Seen) Known(key string) bool {
 }
 
 // Return all visited keys
-func (s *Seen) VisitedKeys() (keys []string) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+func (s *Seen) visitedKeys() (keys []string) {
 	if s.seen == nil {
 		return nil
 	}
@@ -51,5 +50,19 @@ func (s *Seen) VisitedKeys() (keys []string) {
 	for key := range s.seen {
 		keys = append(keys, key)
 	}
+	return keys
+}
+
+func (s *Seen) VisitedKeys() []string {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.visitedKeys()
+}
+
+func (s *Seen) VisitedKeysSorted() []string {
+	s.mu.Lock()
+	keys := s.visitedKeys()
+	s.mu.Unlock()
+	sort.Strings(keys)
 	return keys
 }

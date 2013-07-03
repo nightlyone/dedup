@@ -10,9 +10,9 @@ func ExampleVisit() {
 	fmt.Println(seen, dups.Known("hello"), dups.VisitedKeys())
 	fmt.Println(seen, dups.Known("world"), dups.VisitedKeys())
 	seen = dups.Visit("world")
-	fmt.Println(seen, dups.Known("world"), dups.VisitedKeys())
+	fmt.Println(seen, dups.Known("world"), dups.VisitedKeysSorted())
 	seen = dups.Visit("world")
-	fmt.Println(seen, dups.Known("world"), dups.VisitedKeys())
+	fmt.Println(seen, dups.Known("world"), dups.VisitedKeysSorted())
 	// Output: false true [hello]
 	// false false [hello]
 	// false true [hello world]
