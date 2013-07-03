@@ -4,6 +4,7 @@ import (
 	"sync"
 )
 
+// Structure for tracking strings we have already seen.
 type Seen struct {
 	seen map[string]bool
 	mu   sync.Mutex
